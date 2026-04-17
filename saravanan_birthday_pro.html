@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="ta">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>இனிய பிறந்தநாள் வாழ்த்துக்கள் - சரவணன்</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --gold: #f4c95d;
+        --dark: #0a0812;
+        --glass: rgba(255, 255, 255, 0.09);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: radial-gradient(circle at 50% 30%, #1f1a2e 0%, #0a0812 70%);
+        color: #fff;
+        font-family: "Noto Sans Tamil", system-ui, sans-serif;
+        overflow-x: hidden;
+        line-height: 1.8;
+      }
+
+      canvas#canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.85;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 15px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 60px 15px 80px;
+      }
+
+      .hero .tag {
+        color: var(--gold);
+        letter-spacing: 6px;
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .hero h1 {
+        font-size: clamp(42px, 13vw, 78px);
+        font-weight: 900;
+        background: linear-gradient(90deg, #f4c95d, #fff8d6, #f4c95d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 50px rgba(244, 201, 93, 0.5);
+        margin-bottom: 20px;
+      }
+      .hero p {
+        font-size: 1.22rem;
+        max-width: 85%;
+        opacity: 0.9;
+        margin: 0 auto;
+      }
+
+      /* Cake */
+      .cake-wrapper {
+        margin: 45px 0 25px;
+      }
+      #cake-svg {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        filter: drop-shadow(0 25px 50px rgba(244, 201, 93, 0.45));
+      }
+      #cake-svg:hover {
+        transform: scale(1.08);
+      }
+      .flame {
+        animation: flame-flicker 0.16s infinite alternate ease-in-out;
+      }
+      @keyframes flame-flicker {
+        0% {
+          transform: scale(1) translateY(0);
+        }
+        100% {
+          transform: scale(1.22) translateY(-5px);
+        }
+      }
+      .status {
+        margin-top: 15px;
+        color: var(--gold);
+        font-size: 1.15rem;
+        font-weight: 500;
+      }
+
+      /* Music Player */
+      .music-player {
+        position: fixed;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(10, 8, 18, 0.92);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(244, 201, 93, 0.35);
+        border-radius: 50px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 100;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        max-width: 280px;
+      }
+      .music-player button {
+        background: none;
+        border: none;
+        color: var(--gold);
+        font-size: 1.35rem;
+        padding: 5px;
+        cursor: pointer;
+      }
+
+      /* Family Cards with Background Image */
+      .family-wishes {
+        padding: 80px 15px;
+      }
+      .family-title {
+        font-size: clamp(1.9rem, 7vw, 2.8rem);
+        text-align: center;
+        margin-bottom: 50px;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--gold), #fff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .family-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      @media (min-width: 640px) {
+        .family-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .family-card {
+        height: 420px;
+        border-radius: 28px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        transition: all 0.5s ease;
+      }
+      .family-card:hover {
+        transform: scale(1.03);
+      }
+
+      .family-card .bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.75);
+      }
+
+      .family-card .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 35px 25px 30px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+        color: white;
+        text-align: center;
+      }
+
+      .family-name {
+        color: var(--gold);
+        font-size: 1.45rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .family-role {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        margin-bottom: 16px;
+        letter-spacing: 1px;
+      }
+      .family-message {
+        font-size: 1.1rem;
+        line-height: 1.75;
+        font-style: italic;
+      }
+
+      /* ==================== SPECIAL MEMORIES SECTION ==================== */
+      .memories-section {
+        padding: 80px 15px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 30px;
+        margin: 40px 10px;
+      }
+
+      .memories-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+      @media (min-width: 640px) {
+        .memories-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .memory-card {
+        background: var(--glass);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 25px;
+        border: 1px solid rgba(244, 201, 93, 0.25);
+        transition: all 0.4s;
+      }
+      .memory-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--gold);
+      }
+      .memory-year {
+        color: var(--gold);
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 10px;
+      }
+
+      /* ==================== IMPROVED GENERAL WISHES ==================== */
+      .section {
+        padding: 80px 15px;
+        scroll-margin-top: 80px;
+      }
+
+      .section-title {
+        font-size: clamp(1.9rem, 7vw, 2.8rem);
+        text-align: center;
+        margin-bottom: 60px;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--gold), #fff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .wishes-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      @media (min-width: 640px) {
+        .wishes-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .wish-card {
+        background: var(--glass);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(244, 201, 93, 0.35);
+        border-radius: 28px;
+        padding: 45px 30px;
+        text-align: center;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .wish-card:hover {
+        transform: translateY(-15px) scale(1.03);
+        border-color: var(--gold);
+        box-shadow: 0 25px 60px rgba(244, 201, 93, 0.25);
+      }
+
+      .wish-card i {
+        font-size: 3.2rem;
+        color: var(--gold);
+        margin-bottom: 25px;
+      }
+      .wish-card:hover i {
+        transform: scale(1.2) rotate(8deg);
+      }
+
+      .wish-card p {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        opacity: 0.95;
+      }
+
+      /* ==================== ENHANCED PHOTO GALLERY ==================== */
+      .photo-gallery {
+        padding: 80px 15px;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 20px;
+      }
+      @media (min-width: 480px) {
+        .photo-grid {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+      }
+
+      .photo-card {
+        background: var(--glass);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(244, 201, 93, 0.25);
+        transition: all 0.5s;
+      }
+      .photo-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      }
+      .photo-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+      }
+      .photo-info {
+        padding: 16px 12px;
+        text-align: center;
+        font-size: 1rem;
+        color: #ddd;
+      }
+
+      .final-blessing {
+        background: linear-gradient(
+          150deg,
+          rgba(244, 201, 93, 0.08),
+          transparent
+        );
+        border-radius: 30px;
+        padding: 80px 25px;
+        text-align: center;
+        margin: 60px 10px;
+      }
+      .final-blessing h2 {
+        font-size: clamp(1.8rem, 6.5vw, 2.9rem);
+        line-height: 1.4;
+        margin-bottom: 25px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 60px 15px 40px;
+        opacity: 0.7;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+      <button id="playBtn"><i class="fas fa-pause"></i></button>
+      <span>Soft Birthday Melody</span>
+      <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
+    </div>
+
+    <div class="container">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="tag">HAPPY BIRTHDAY</div>
+        <h1>சரவணன்</h1>
+        <p>
+          உங்கள் பிறந்தநாள் எங்களுக்கு பெரும் மகிழ்ச்சியைத் தருகிறது.<br />நீண்ட
+          ஆயுள், நல்ல ஆரோக்கியம், வெற்றி மற்றும் மகிழ்ச்சி நிறைந்த வாழ்க்கை
+          அமையட்டும்.
+        </p>
+        <div class="cake-wrapper">
+          <svg
+            id="cake-svg"
+            viewBox="0 0 220 200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="32"
+              y="128"
+              width="156"
+              height="50"
+              rx="16"
+              fill="#3c2a20"
+            />
+            <rect
+              x="26"
+              y="92"
+              width="168"
+              height="42"
+              rx="14"
+              fill="#5a3f2e"
+            />
+            <rect
+              x="38"
+              y="62"
+              width="144"
+              height="36"
+              rx="12"
+              fill="#7a5a45"
+            />
+            <circle cx="110" cy="55" r="30" fill="#3c2a20" />
+            <path
+              d="M68 68 Q88 45 110 68 Q132 45 152 68"
+              fill="none"
+              stroke="#f4c95d"
+              stroke-width="9"
+              opacity="0.55"
+            />
+            <g id="candles">
+              <rect
+                x="70"
+                y="35"
+                width="11"
+                height="34"
+                rx="4"
+                fill="#f4c95d"
+              />
+              <path
+                class="flame"
+                d="M75.5 35 Q68 14 75.5 9 Q83 14 75.5 35"
+                fill="#ff6b00"
+              />
+              <rect
+                x="100"
+                y="29"
+                width="11"
+                height="40"
+                rx="4"
+                fill="#f4c95d"
+              />
+              <path
+                class="flame"
+                d="M105.5 29 Q98 8 105.5 3 Q113 8 105.5 29"
+                fill="#ff6b00"
+              />
+              <rect
+                x="130"
+                y="35"
+                width="11"
+                height="34"
+                rx="4"
+                fill="#f4c95d"
+              />
+              <path
+                class="flame"
+                d="M135.5 35 Q128 14 135.5 9 Q143 14 135.5 35"
+                fill="#ff6b00"
+              />
+            </g>
+          </svg>
+          <div class="status" id="status">
+            மெழுகுவர்த்திகள் ஒளிர்கின்றன... 🎂
+          </div>
+        </div>
+      </section>
+
+      <!-- FAMILY WISHES -->
+      <section class="family-wishes">
+        <h2 class="family-title">குடும்பத்தின் அன்பான வாழ்த்துக்கள்</h2>
+        <div class="family-grid">
+          <div class="family-card">
+            <div
+              class="bg-image"
+              style="background-image: url(&quot;./amutha.jpeg&quot;)"
+            ></div>
+            <div class="overlay">
+              <div class="family-name">உங்கள் மனைவி</div>
+              <div class="family-role">அன்புள்ள மனைவியின் வாழ்த்து</div>
+              <p class="family-message">
+                "என் அன்பே, உங்களுடன் இருக்கும் ஒவ்வொரு நாளும் எனக்கு பெரிய
+                கொண்டாட்டம்.<br />இனிய பிறந்தநாள் வாழ்த்துக்கள்! ❤️"
+              </p>
+            </div>
+          </div>
+          <div class="family-card">
+            <div
+              class="bg-image"
+              style="background-image: url(&quot;./nikil.jpeg&quot;)"
+            ></div>
+            <div class="overlay">
+              <div class="family-name">உங்கள் மகன்</div>
+              <div class="family-role">அன்புள்ள மகனின் வாழ்த்து</div>
+              <p class="family-message">
+                "அப்பா, நீங்க தான் என் ஹீரோ! உங்களைப் பார்த்து நானும்
+                பெரியவனாகணும்.<br />ஹேப்பி பர்த்டே அப்பா! ரொம்ப லவ் யூ ❤️"
+              </p>
+            </div>
+          </div>
+          <div class="family-card">
+            <div
+              class="bg-image"
+              style="background-image: url(&quot;./nikitha.jpeg&quot;)"
+            ></div>
+            <div class="overlay">
+              <div class="family-name">உங்கள் மகள்</div>
+              <div class="family-role">அன்புள்ள மகளின் வாழ்த்து</div>
+              <p class="family-message">
+                "அப்பா, நீங்க உலகத்திலேயே சூப்பர் அப்பா!<br />உங்கள் புன்னகை
+                தான் எங்களுக்கு எல்லாம். இனிய பிறந்தநாள் வாழ்த்துக்கள் அப்பா 💕"
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPECIAL MEMORIES SECTION -->
+      <section class="memories-section">
+        <h2 class="section-title">சிறப்பு நினைவுகள்</h2>
+        <div class="memories-grid">
+          <div class="memory-card">
+            <div class="memory-year">2018</div>
+            <p>
+              குடும்பத்துடன் முதல் வெளிநாட்டு பயணம் – அந்த நாள் இன்றும் எங்கள்
+              இதயத்தில் பசுமையாக இருக்கிறது.
+            </p>
+          </div>
+          <div class="memory-card">
+            <div class="memory-year">2022</div>
+            <p>
+              மகன் பள்ளியில் முதல் பரிசு பெற்ற நாள். உங்கள் பெருமிதப் புன்னகை
+              மறக்க முடியாதது.
+            </p>
+          </div>
+          <div class="memory-card">
+            <div class="memory-year">2024</div>
+            <p>
+              குடும்ப வீட்டு விழா – அனைவரும் ஒன்றாக இருந்த அந்த மகிழ்ச்சியான
+              தருணங்கள்.
+            </p>
+          </div>
+          <div class="memory-card">
+            <div class="memory-year">2025</div>
+            <p>
+              உங்கள் பிறந்தநாள் கொண்டாட்டம் – எங்கள் அன்பு உங்களுக்கு எப்போதும்
+              உண்டு.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- GENERAL WISHES -->
+      <section class="section">
+        <h2 class="section-title">எங்கள் அன்பான வாழ்த்துக்கள்</h2>
+        <div class="wishes-grid">
+          <div class="wish-card">
+            <i class="fas fa-heart"></i>
+            <p>
+              உங்கள் வாழ்க்கை எப்போதும் மகிழ்ச்சியாலும், நல்ல நினைவுகளாலும்
+              நிறைந்திருக்கட்டும்.
+            </p>
+          </div>
+          <div class="wish-card">
+            <i class="fas fa-star"></i>
+            <p>
+              புதிய வருடம் உங்களுக்கு பல வெற்றிகளையும், ஆரோக்கியத்தையும் கொண்டு
+              வரட்டும்.
+            </p>
+          </div>
+          <div class="wish-card">
+            <i class="fas fa-pray"></i>
+            <p>
+              இறைவன் உங்களுக்கு நீண்ட ஆயுள், நல்ல உடல் நலம் மற்றும் அமைதியை
+              அருளட்டும்.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENHANCED PHOTO GALLERY -->
+      <section class="photo-gallery">
+        <h2 class="section-title">குடும்ப புகைப்படங்கள்</h2>
+        <div class="photo-grid">
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/201/800/600" alt="குடும்பம்" />
+            <div class="photo-info">குடும்பத்துடன் மகிழ்ச்சியான தருணம்</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/133/800/600" alt="பயணம்" />
+            <div class="photo-info">இணைந்து சென்ற அழகான பயணம்</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/251/800/600" alt="விழா" />
+            <div class="photo-info">குடும்ப விழா</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/64/800/600" alt="புன்னகை" />
+            <div class="photo-info">உங்கள் புன்னகை எங்களின் ஒளி</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/1015/800/600" alt="நினைவு" />
+            <div class="photo-info">இதயத்தில் பசுமையான நினைவு</div>
+          </div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/180/800/600" alt="ஒன்றாக" />
+            <div class="photo-info">ஒன்றாக இருக்கும் மகிழ்ச்சி</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL BLESSING -->
+      <div class="final-blessing">
+        <h2>
+          இனிய பிறந்தநாள் வாழ்த்துக்கள்!<br />உங்கள் வாழ்க்கை தங்கமாக ஒளிரட்டும்
+          ✨
+        </h2>
+        <p style="font-size: 1.3rem; opacity: 0.9; margin-top: 15px">
+          — உங்கள் அன்பான குடும்பத்தினர் ❤️
+        </p>
+      </div>
+    </div>
+
+    <footer>Made with ❤️ for a special person</footer>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+      <source
+        src="https://assets.mixkit.co/music/preview/296/296-preview.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script>
+      const canvas = document.getElementById("canvas");
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      // Music Player
+      const music = document.getElementById("bgMusic");
+      const playBtn = document.getElementById("playBtn");
+      const muteBtn = document.getElementById("muteBtn");
+      let isPlaying = true;
+      let isMuted = false;
+
+      music.volume = 0.32;
+      music.play().catch(() => {});
+
+      playBtn.addEventListener("click", () => {
+        if (isPlaying) {
+          music.pause();
+          playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+          music.play();
+          playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+      });
+
+      muteBtn.addEventListener("click", () => {
+        isMuted = !isMuted;
+        music.muted = isMuted;
+        muteBtn.innerHTML = isMuted
+          ? '<i class="fas fa-volume-mute"></i>'
+          : '<i class="fas fa-volume-up"></i>';
+      });
+
+      // Celebration
+      setTimeout(() => {
+        document.querySelectorAll(".flame").forEach((f) => {
+          f.style.transition = "opacity 1.2s";
+          f.style.opacity = "0";
+        });
+        document.getElementById("status").innerHTML =
+          "வாழ்த்துக்கள்! உங்கள் வாழ்க்கை ஒளிரட்டும்! 🎉";
+
+        const duration = 14000;
+        const end = Date.now() + duration;
+        const interval = setInterval(() => {
+          if (Date.now() > end) clearInterval(interval);
+          confetti({
+            particleCount: 70,
+            spread: 80,
+            origin: { x: Math.random(), y: Math.random() * 0.7 },
+            colors: ["#f4c95d", "#ffffff", "#ff8c00"],
+          });
+        }, 250);
+      }, 2400);
+    </script>
+  </body>
+</html>
