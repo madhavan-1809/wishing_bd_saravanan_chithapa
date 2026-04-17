@@ -144,7 +144,7 @@
         cursor: pointer;
       }
 
-      /* Family Cards - Clean Structure (Your original design) */
+      /* Family Cards - Clean Structure */
       .family-wishes {
         padding: 80px 15px;
       }
@@ -178,6 +178,20 @@
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
         transition: transform 0.4s ease;
       }
+      .card-bottom {
+        width: 100%;
+        height: 50px;
+        background-color: black;
+        /* color: white; */
+        color: var(--gold);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 10px;
+      }
 
       .family-card:active {
         transform: scale(0.97);
@@ -194,21 +208,6 @@
         filter: brightness(0.95) contrast(1.05);
       }
 
-      .card-bottom {
-        width: 100%;
-        height: 55px;
-        background-color: black;
-        /* color: white; */
-        color: var(--gold);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-top: 10px;
-        font-size: 20px;
-      }
       .family-card .overlay {
         position: absolute;
         bottom: 0;
@@ -234,7 +233,7 @@
       }
 
       .family-role {
-        font-size: 16px;
+        font-size: 0.95rem;
         opacity: 0.9;
         margin-bottom: 12px;
         letter-spacing: 1px;
@@ -326,7 +325,9 @@
         border: 1px solid rgba(244, 201, 93, 0.25);
         transition: transform 0.4s ease;
       }
-      .photo-card:active,
+      .photo-card:active {
+        transform: scale(0.97);
+      }
       .card01:active {
         transform: scale(0.97);
       }
@@ -374,11 +375,11 @@
         opacity: 0.7;
         font-size: 0.95rem;
       }
-
       .family {
         width: 100%;
         height: 350px;
         background-image: url("./family.jpeg");
+        /* background-position: ; */
         background-size: cover;
         background-repeat: no-repeat;
         margin-bottom: 1rem;
@@ -390,12 +391,12 @@
   <body>
     <canvas id="canvas"></canvas>
 
-    <!-- Music Player (commented as in your code) -->
+    <!-- Music Player -->
     <!-- <div class="music-player" id="musicPlayer">
-    <button id="playBtn"><i class="fas fa-pause"></i></button>
-    <span>Soft Birthday Melody</span>
-    <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
-  </div> -->
+      <button id="playBtn"><i class="fas fa-pause"></i></button>
+      <span>Soft Birthday Melody</span>
+      <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
+    </div> -->
 
     <div class="container">
       <!-- HERO -->
@@ -625,10 +626,18 @@
             <img src="./journey04.jpeg" alt="விழா" />
             <div class="photo-info">குடும்ப விழா</div>
           </div>
+          <div class="photo-card" id="special">
+            <img src="./journey05.jpeg" alt="விழா" />
+            <div class="photo-info">குடும்ப விழா</div>
+          </div>
           <div class="photo-card">
             <img src="./outing05.jpeg" alt="பயணம்" />
             <div class="photo-info">இணைந்து சென்ற அழகான பயணம்</div>
           </div>
+          <!-- <div class="photo-card">
+            <img src="./outing02.jpeg" alt="பயணம்" />
+            <div class="photo-info">இணைந்து சென்ற அழகான பயணம்</div>
+          </div> -->
           <div class="photo-card">
             <img src="./outing03.jpeg" alt="பயணம்" />
             <div class="photo-info">இணைந்து சென்ற அழகான பயணம்</div>
@@ -638,9 +647,13 @@
             <div class="photo-info">இணைந்து சென்ற அழகான பயணம்</div>
           </div>
           <div class="photo-card">
-            <img src="./outing01.jpeg" alt="பயணம்" />
+            <img src="outing01.jpeg" alt="பயணம்" />
             <div class="photo-info">இணைந்து சென்ற அழகான பயணம்</div>
           </div>
+          <!-- <div class="photo-card">
+            <img src="https://picsum.photos/id/64/800/600" alt="புன்னகை" />
+            <div class="photo-info">உங்கள் புன்னகை எங்களின் ஒளி</div>
+          </div> -->
           <div class="photo-card">
             <img src="./angel.jpeg" alt="நினைவு" />
             <div class="photo-info">குட்டி தேவதை</div>
@@ -690,17 +703,21 @@
             <div class="photo-info">மாமா பாசம்</div>
           </div>
           <div class="photo-card">
-            <img src="./last02.jpeg" alt="ஒன்றாக" />
+            <img src="./last02.jpeg"" alt="ஒன்றாக" />
             <div class="photo-info">ஒன்றாக இருக்கும் மகிழ்ச்சி</div>
-          </div>
+            </div>
           <div class="photo-card">
             <img src="./last03.jpeg" alt="ஒன்றாக" />
             <div class="photo-info">ஒன்றாக இருக்கும் மகிழ்ச்சி</div>
-          </div>
+            </div>
           <div class="photo-card">
             <img src="./last01.jpeg" alt="ஒன்றாக" />
             <div class="photo-info">ஒன்றாக இருக்கும் மகிழ்ச்சி</div>
-          </div>
+            </div>
+          <!-- <div class="photo-card">
+            <img src="https://picsum.photos/id/180/800/600" alt="ஒன்றாக" />
+            <div class="photo-info">ஒன்றாக இருக்கும் மகிழ்ச்சி</div>
+          </div> -->
         </div>
       </section>
 
@@ -716,9 +733,7 @@
       </div>
     </div>
 
-    <footer style="color: var(--gold); font-size: 24px">
-      Made By ❤️ Madhavan
-    </footer>
+    <footer style="color: var(--gold); font-size: 24px;">Made By ❤️ Madhavan</footer>
 
     <!-- Background Music -->
     <audio id="bgMusic" loop>
@@ -738,35 +753,56 @@
       window.addEventListener("resize", resizeCanvas);
       resizeCanvas();
 
-      // Celebration + Candle Blow + Fireworks
+      // Music Player
+      const music = document.getElementById("bgMusic");
+      const playBtn = document.getElementById("playBtn");
+      const muteBtn = document.getElementById("muteBtn");
+      let isPlaying = true;
+      let isMuted = false;
+
+      music.volume = 0.32;
+      music.play().catch(() => {});
+
+      playBtn.addEventListener("click", () => {
+        if (isPlaying) {
+          music.pause();
+          playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+          music.play();
+          playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+      });
+
+      muteBtn.addEventListener("click", () => {
+        isMuted = !isMuted;
+        music.muted = isMuted;
+        muteBtn.innerHTML = isMuted
+          ? '<i class="fas fa-volume-mute"></i>'
+          : '<i class="fas fa-volume-up"></i>';
+      });
+
+      // Celebration
       setTimeout(() => {
-        // Candle blow off animation
         document.querySelectorAll(".flame").forEach((f) => {
-          f.style.transition = "opacity 1.4s ease";
+          f.style.transition = "opacity 1.2s";
           f.style.opacity = "0";
         });
-
-        // Change status text
         document.getElementById("status").innerHTML =
           "வாழ்த்துக்கள்! உங்கள் வாழ்க்கை ஒளிரட்டும்! 🎉";
 
-        // Fireworks / Crackers animation
         const duration = 14000;
         const end = Date.now() + duration;
-
         const interval = setInterval(() => {
-          if (Date.now() > end) {
-            clearInterval(interval);
-            return;
-          }
+          if (Date.now() > end) clearInterval(interval);
           confetti({
-            particleCount: 80,
-            spread: 90,
-            origin: { x: Math.random(), y: Math.random() * 0.6 },
-            colors: ["#f4c95d", "#ffffff", "#ff8c00", "#ffd700"],
+            particleCount: 70,
+            spread: 80,
+            origin: { x: Math.random(), y: Math.random() * 0.7 },
+            colors: ["#f4c95d", "#ffffff", "#ff8c00"],
           });
-        }, 220);
-      }, 1400);
+        }, 250);
+      }, 2400);
     </script>
   </body>
 </html>
